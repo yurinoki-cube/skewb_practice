@@ -1,0 +1,126 @@
+#alg_label{
+  height: 30px;
+  top: 5px;
+  left: 10px;
+}
+
+#alg_text{
+/*  display: block;*/
+  width: 260px;
+  height: 35px;
+  position: absolute;
+    top: 35px;
+    left: 10px;
+  overflow: auto;
+}
+
+
+
+#alg_r{
+  display: block;
+  position: absolute;
+  width: 40px;
+  top: 80px;
+  left: 10px;
+  overflow: auto;
+}
+
+#alg_r_{
+  display: block;
+  position: absolute;
+  width: 40px;
+  top: 80px;
+  left: 55px;
+  overflow: auto;
+}
+
+#alg_R{
+  display: block;
+  position: absolute;
+  width: 40px;
+  top: 80px;
+  left: 100px;
+  overflow: auto;
+}
+
+#alg_R_{
+  display: block;
+  position: absolute;
+  width: 40px;
+  top: 80px;
+  left: 145px;
+  overflow: auto;
+}
+
+#alg_delete{
+  display: block;
+  position: absolute;
+  width: 75px;
+  top: 80px;
+  left: 195px;
+  overflow: auto;
+
+}
+
+#alg_B{
+  display: block;
+  position: absolute;
+  width: 40px;
+  top: 120px;
+  left: 10px;
+  overflow: auto;
+}
+
+#alg_B_{
+  display: block;
+  position: absolute;
+  width: 40px;
+  top: 120px;
+  left: 55px;
+  overflow: auto;
+}
+
+#alg_b{
+  display: block;
+  position: absolute;
+  width: 40px;
+  top: 120px;
+  left: 100px;
+  overflow: auto;
+}
+
+#alg_b_{
+  display: block;
+  position: absolute;
+  width: 40px;
+  top: 120px;
+  left: 145px;
+  overflow: auto;
+}
+
+#alg_start{
+    position: absolute;
+    width: 75px;
+    top: 120px;
+
+    left: 195px;
+    overflow: auto;
+}
+
+#alg_x{
+  display: block;
+  position: absolute;
+  width: 40px;
+  top: 155px;
+  left: 10px;
+  overflow: auto;
+}
+
+#alg_x_{
+  display: block;
+  position: absolute;
+  width: 40px;
+  top: 155px;
+  left: 55px;
+  overflow: auto;
+}

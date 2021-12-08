@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Skewb一面</title>
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
+    <script src="bootstrap.min.js"></script>
+    <script src="main.js"></script>
+    <script src="skewb.js"></script>
+    <script src="https://unpkg.com/three@0.131.3/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.131.3/examples/js/controls/OrbitControls.js"></script>
+
+    <script>
+
+      // ページの読み込みを待つ
+      window.addEventListener('load', init);
+
+      function init() {
+        // サイズを指定
+        const width = 300;
+        const height = 450;
+
+        const canvasElement = document.querySelector('#myCanvas');
+        // レンダラーを作成
+        const renderer = new THREE.WebGLRenderer({
+          canvas: canvasElement,
+          alpha: true,
+        });
+        renderer.setSize(width, height);
+
+        // シーンを作成
+        const scene = new THREE.Scene();
+
+        // カメラを作成
+        const camera = new THREE.PerspectiveCamera(45, width / height);
+        // カメラの初期座標を設定
+        camera.position.set(0, 0, 1000);
+        camera.rotation.set(0,0,Math.PI/4);
+        // カメラコントローラーを作成
+        const controls = new THREE.OrbitControls(camera, canvasElement);
+
+        // 滑らかにカメラコントローラーを制御する
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.2;
+
+        //光源
+        const light = new THREE.AmbientLight(0xffffff);
+        scene.add(light);
+
+        // マテリアルを作成
+
+//        const material = new THREE.MeshStandardMaterial();
+/*
+        material.opacity = 0.7;
+        material.transparent = true;
+        material.depthTest = false;
+*/
+        //キューブの枠の固定用
+        //2回目以降の更新時に枠がなぜか変な位置に描写されるため。
+        var geometryss = new THREE.BoxGeometry(299, 299, 299);
+        var materialss = new THREE.MeshBasicMaterial({color: 0xffffff});
+        var boxss = new THREE.Mesh(geometryss,materialss);
+        scene.add(boxss);
+
+        //キューブの枠
+        var boxgeometry = new THREE.BoxGeometry(301, 301, 301);
+        var boxedge = new THREE.EdgesGeometry(boxgeometry);
+        var boxline = new THREE.LineSegments(boxedge, new  THREE.LineBasicMaterial({color: 0x000000}));
+        scene.add(boxline);
+
+        //キューブの色
+        var materials = [
+          new THREE.MeshBasicMaterial({color: 0x3cb371}),
+          new THREE.MeshBasicMaterial({color: 0x4169e1}),
+          new THREE.MeshBasicMaterial({color: 0xff0000}),
+          new THREE.MeshBasicMaterial({color: 0xffa500}),
+          new THREE.MeshBasicMaterial({color: 0xf5f5f5}),
+          new THREE.MeshBasicMaterial({color: 0xffff00})
+        ];
+
+        //四角の作成
+        var geometrys = [
+          new THREE.BoxGeometry(150, 150, 1),
+          new THREE.BoxGeometry(1, 150, 150),
+          new THREE.BoxGeometry(150, 1, 150),
+          new THREE.BoxGeometry(150*1.41, 150*1.41, 1),
+          new THREE.BoxGeometry(1, 150*1.41, 150*1.41),
+          new THREE.BoxGeometry(150*1.41, 1, 150*1.41)
+        ];
+
+        //コーナー
+        var corner = [
+          new THREE.Mesh(geometrys[0],materials[cornerColor[0]]),
+          new THREE.Mesh(geometrys[0],materials[cornerColor[1]]),
+          new THREE.Mesh(geometrys[0],materials[cornerColor[2]]),
+          new THREE.Mesh(geometrys[0],materials[cornerColor[3]]),
+          new THREE.Mesh(geometrys[0],materials[cornerColor[4]]),
+          new THREE.Mesh(geometrys[0],materials[cornerColor[5]]),
+          new THREE.Mesh(geometrys[0],materials[cornerColor[6]]),
+          new THREE.Mesh(geometrys[0],materials[cornerColor[7]]),
+          new THREE.Mesh(geometrys[1],materials[cornerColor[8]]),
+          new THREE.Mesh(geometrys[1],materials[cornerColor[9]]),
+          new THREE.Mesh(geometrys[1],materials[cornerColor[10]]),
+          new THREE.Mesh(geometrys[1],materials[cornerColor[11]]),
+          new THREE.Mesh(geometrys[1],materials[cornerColor[12]]),
+          new THREE.Mesh(geometrys[1],materials[cornerColor[13]]),
+          new THREE.Mesh(geometrys[1],materials[cornerColor[14]]),
+          new THREE.Mesh(geometrys[1],materials[cornerColor[15]]),
+          new THREE.Mesh(geometrys[2],materials[cornerColor[16]]),
+          new THREE.Mesh(geometrys[2],materials[cornerColor[17]]),
+          new THREE.Mesh(geometrys[2],materials[cornerColor[18]]),
+          new THREE.Mesh(geometrys[2],materials[cornerColor[19]]),
+          new THREE.Mesh(geometrys[2],materials[cornerColor[20]]),
+          new THREE.Mesh(geometrys[2],materials[cornerColor[21]]),
+          new THREE.Mesh(geometrys[2],materials[cornerColor[22]]),
+          new THREE.Mesh(geometrys[2],materials[cornerColor[23]])
+        ];
+
+
+
+        //センター
+        const center = [
+          new THREE.Mesh(geometrys[3],materials[centerColor[0]]),
+          new THREE.Mesh(geometrys[3],materials[centerColor[1]]),
+          new THREE.Mesh(geometrys[4],materials[centerColor[2]]),
+          new THREE.Mesh(geometrys[4],materials[centerColor[3]]),
+          new THREE.Mesh(geometrys[5],materials[centerColor[4]]),
+          new THREE.Mesh(geometrys[5],materials[centerColor[5]])
+        ];
+
+        //コーナーの位置
+        corner[0].position.set(75, 75, 150);
+        corner[1].position.set(75, -75, 150);
+        corner[2].position.set(-75, 75, 150);
+        corner[3].position.set(-75, -75, 150);
+        corner[4].position.set(75, 75, -150);
+        corner[5].position.set(75, -75, -150);
+        corner[6].position.set(-75, 75, -150);
+        corner[7].position.set(-75, -75, -150);
+        corner[8].position.set(150, 75, 75);
+        corner[9].position.set(150, 75, -75);
+        corner[10].position.set(150, -75, 75);
+        corner[11].position.set(150, -75, -75);
+        corner[12].position.set(-150, 75, 75);
+        corner[13].position.set(-150, 75, -75);
+        corner[14].position.set(-150, -75, 75);
+        corner[15].position.set(-150, -75, -75);
+        corner[16].position.set(75, 150, 75);
+        corner[17].position.set(75, 150, -75);
+        corner[18].position.set(-75, 150, 75);
+        corner[19].position.set(-75, 150, -75);
+        corner[20].position.set(75, -150, 75);
+        corner[21].position.set(75, -150, -75);
+        corner[22].position.set(-75, -150, 75);
+        corner[23].position.set(-75, -150, -75);
+
+        //センターの位置
+        center[0].position.set(0, 0, 151);
+        center[1].position.set(0, 0, -151);
+        center[2].position.set(151, 0, 0);
+        center[3].position.set(-151, 0, 0);
+        center[4].position.set(0, 151, 0);
+        center[5].position.set(0, -151, 0);
+
+        //センターの向き
+        center[0].rotation.set(0,0,Math.PI/4);
+        center[1].rotation.set(0,0,Math.PI/4);
+        center[2].rotation.set(Math.PI/4,0,0);
+        center[3].rotation.set(Math.PI/4,0,0);
+        center[4].rotation.set(0,Math.PI/4,0);
+        center[5].rotation.set(0,Math.PI/4,0);
+
+        //センターの輪郭
+        const edges = [
+          new THREE.EdgesGeometry(geometrys[3]),
+          new THREE.EdgesGeometry(geometrys[3]),
+          new THREE.EdgesGeometry(geometrys[4]),
+          new THREE.EdgesGeometry(geometrys[4]),
+          new THREE.EdgesGeometry(geometrys[5]),
+          new THREE.EdgesGeometry(geometrys[5])
+        ];
+
+        //センターの輪郭の線
+        var lines = [
+            new THREE.LineSegments(edges[0], new THREE.LineBasicMaterial({color: 0x000000})),
+            new THREE.LineSegments(edges[1], new THREE.LineBasicMaterial({color: 0x000000})),
+            new THREE.LineSegments(edges[2], new THREE.LineBasicMaterial({color: 0x000000})),
+            new THREE.LineSegments(edges[3], new THREE.LineBasicMaterial({color: 0x000000})),
+            new THREE.LineSegments(edges[4], new THREE.LineBasicMaterial({color: 0x000000})),
+            new THREE.LineSegments(edges[5], new THREE.LineBasicMaterial({color: 0x000000}))
+        ];
+
+        //センターの輪郭の線の位置
+        lines[0].position.set(0, 0, 151);
+        lines[1].position.set(0, 0, -151);
+        lines[2].position.set(151, 0, 0);
+        lines[3].position.set(-151, 0, 0);
+        lines[4].position.set(0, 151, 0);
+        lines[5].position.set(0, -151, 0);
+
+        //センターの輪郭の線の向き
+        lines[0].rotation.set(0,0,Math.PI/4);
+        lines[1].rotation.set(0,0,Math.PI/4);
+        lines[2].rotation.set(Math.PI/4,0,0);
+        lines[3].rotation.set(Math.PI/4,0,0);
+        lines[4].rotation.set(0,Math.PI/4,0);
+        lines[5].rotation.set(0,Math.PI/4,0);
+
+        //コーナーを映す
+        for(var i=0;i<=23;i++){
+          scene.add(corner[i]);
+        }
+
+        //センターを映す
+        for(var i=0;i<=5;i++){
+          scene.add(center[i]);
+          scene.add(lines[i]);
+        }
+
+
+        tick();
+
+        // 毎フレーム時に実行されるループイベントです
+        function tick() {
+
+          // カメラコントローラーを更新
+          controls.update();
+
+          // レンダリング
+          renderer.render(scene, camera);
+
+          requestAnimationFrame(tick);
+        }
+      }
+
+
+    </script>
+  </head>
+  <body>
+    <header><h1>一面練習</h1></header>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <canvas id="myCanvas"></canvas>
+        </div>
+        <div class="col-sm-12" >
+          <form name = "algForm">
+            <label class="form-label" id="alg_label">回転記号入力</label>
+            <input type="text" class="form-control" readonly="readonly" id="alg_text">
+            <button type="button" class="btn btn-primary" id="alg_start" onclick="scramble_alg()">実行！</button>
+            <button type="button" class="btn btn-light" id="alg_r" onclick="input_alg('r')">r</button>
+            <button type="button" class="btn btn-light" id="alg_r_" onclick="input_alg('r\'')">r'</button>
+            <button type="button" class="btn btn-light" id="alg_R" onclick="input_alg('R')">R</button>
+            <button type="button" class="btn btn-light" id="alg_R_" onclick="input_alg('R\'')">R'</button>
+            <button type="button" class="btn btn-light" id="alg_B" onclick="input_alg('B')">B</button>
+            <button type="button" class="btn btn-light" id="alg_B_" onclick="input_alg('B\'')">B'</button>
+            <button type="button" class="btn btn-light" id="alg_b" onclick="input_alg('b')">b</button>
+            <button type="button" class="btn btn-light" id="alg_b_" onclick="input_alg('b\'')">b'</button>
+            <button type="button" class="btn btn-secondary" id="alg_delete" onclick="delete_alg()">消す</button><br>
+
+            <button type="button" class="btn btn-light" id="alg_x" onclick="rotation_start('x')">x</button>
+            <button type="button" class="btn btn-light" id="alg_x_" onclick="rotation_start('x\'')">x'</button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    <footer style="background-color:gray"></footer>
+
+  </body>
+</html>
