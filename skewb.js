@@ -289,7 +289,7 @@ function skewb_turn(str){
 
       break;
 
-      case 'x':
+      case 'x\'':
       buffer = centerColor[0];
       centerColor[0] = centerColor[4];
       centerColor[4] = centerColor[1];
@@ -319,9 +319,21 @@ function skewb_turn(str){
       cornerColor[18] = cornerColor[6];
       cornerColor[6] = cornerColor[23];
       cornerColor[23] = buffer;
+
+      buffer = cornerColor[8];
+      cornerColor[8] = cornerColor[9];
+      cornerColor[9] = cornerColor[11];
+      cornerColor[11] = cornerColor[10];
+      cornerColor[10] = buffer;
+
+      buffer = cornerColor[12];
+      cornerColor[12] = cornerColor[13];
+      cornerColor[13] = cornerColor[15];
+      cornerColor[15] = cornerColor[14];
+      cornerColor[14] = buffer;
       break;
 
-      case 'x\'':
+      case 'x':
       buffer = centerColor[0];
       centerColor[0] = centerColor[5];
       centerColor[5] = centerColor[1];
@@ -351,6 +363,18 @@ function skewb_turn(str){
       cornerColor[23] = cornerColor[6];
       cornerColor[6] = cornerColor[18];
       cornerColor[18] = buffer;
+
+      buffer = cornerColor[8];
+      cornerColor[8] = cornerColor[10];
+      cornerColor[10] = cornerColor[11];
+      cornerColor[11] = cornerColor[9];
+      cornerColor[9] = buffer;
+
+      buffer = cornerColor[12];
+      cornerColor[12] = cornerColor[14];
+      cornerColor[14] = cornerColor[15];
+      cornerColor[15] = cornerColor[13];
+      cornerColor[13] = buffer;
       break;
   }
 }
